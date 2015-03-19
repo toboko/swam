@@ -151,4 +151,5 @@ on html
 
 ##Results:
 
-<html><head><script></script><meta name="Welcome to SWAM"><style type="text/css">p{padding: 15px 0 0 15px}#id1{background:red;width:415px;height:300px}#id2{background:orange;width:315px;height:200px;margin:auto}#id3{background:black;width:215px;height:100px;margin:auto}</style><style type="text/css"></style></head><body><strong>Example</strong><section><div id="id1"><p>Section 1</p><div id="id2"><p>Section 2</p><div id="id3"><p style="color:white">Section 3</p></div></div></div></section></body></html>
+```html
+<html><head><script></script><meta name="Welcome to SWAM"><style type="text/css">p{padding: 15px 0 0 15px}#id1{background:red;width:415px;height:300px}#id2{background:orange;width:315px;height:200px;margin:auto}#id3{background:black;width:215px;height:100px;margin:auto}</style><style type="text/css"></style></head><body><strong>Example</strong><section><div id="id1"><p>Section 1</p><div id="id2"><p>Section 2</p><div id="id3"><p style="color:white">Section 3</p></div></div></div></section></body></html>```
