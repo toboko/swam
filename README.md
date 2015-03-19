@@ -23,10 +23,11 @@ ON is a container tag. It is helpful for **div** , **section** , **form** and al
 
 This will produce:
 
+```html
     <div>
         <section></section>
     </div>
-
+```
 
 ####One line
 
@@ -44,9 +45,11 @@ IN open and close in one line. It is helpful for **p** , **h1** , **script** , *
 
 This will produce:
 
+```html
     <p>
         Hello World this a test
     </p>
+```
 
 ####e.g. ON and IN tag
 
@@ -67,6 +70,7 @@ This will produce:
 
 This will produce:
 
+```html
      <html>
         <head>
             <meta>
@@ -76,6 +80,7 @@ This will produce:
             <div></div>
         </body>
     </html>
+```
 
 ##General Values
  **SWAM** is fully backward compatible. You can use instead a ON tag or a IN tag, the same syntax of HTML.
