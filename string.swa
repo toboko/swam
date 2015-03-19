@@ -1,0 +1,22 @@
+on html
+	on head
+		in script
+		in meta name="Welcome to SWAM"
+		in style type="text/css"
+			p{padding: 15px 0 0 15px}
+			#id1{background:red;width:415px;height:300px}
+			#id2{background:orange;width:315px;height:200px;margin:auto}
+			#id3{background:black;width:215px;height:100px;margin:auto}
+	on body
+		in strong
+			Example
+		on section
+			on div #id1
+				in p
+					Questa sintassi è semplicissima
+				on div #id2
+					in p
+						Section 2
+					on div #id3
+						in p style="color:white"
+							Section 3
