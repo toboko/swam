@@ -1,4 +1,9 @@
-<?php
+ <?php
+############################################
+##            LICENSE AFL3.0              ##
+## Copyright (c) 2015-2016 Nicola Bombaci ##
+############################################
+ 
 	class debug{
 		private $workit;
         private $pos_out = 999;

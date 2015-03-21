@@ -33,7 +33,7 @@ This will produce:
 
 **in** *tag*
 
-IN open and close in one line. It is helpful for **p** , **h1** , **script** , **meta** , **style** , **php script** and all kind of elements that containing text or don't accept other things inside themself. If you want to insert something inside an IN tag for example you must start a new paragraph with one tabs than the previous element, if the next paraghraps will have the same number of tabs you are still writing in the same in tag until the number of tabs will be less than the father.
+IN open and close in one line. It is helpful for **p** , **h1** , **script** , **meta** , **style** , **php script** and all kind of elements that containing text or don't accept other things inside themself. If you want to insert something inside an IN tag for example you must start a new paragraph with one more tabs than the previous element, if the next paraghraps will have the same number of tabs you are still writing in the same in tag until the number of tabs will be less than the father.
 
 *e.g*
 
@@ -51,7 +51,7 @@ This will produce:
     </p>
 ```
 
-####e.g. ON and IN tag
+####e.g ON and IN tag
 
 **on html**
 
@@ -85,7 +85,7 @@ This will produce:
 ##General Values
  **SWAM** is fully backward compatible. You can use instead a ON tag or a IN tag, the same syntax of HTML.
 
-> *e.g.* : **on** div **id**="new" **style**="margin-top:20em"
+> *e.g* : **on** div **id**="new" **style**="margin-top:20em"
 
 The important thing is use the white space only for declare a new value and the tab only for the row (the hierarchy of the nodes)
 
@@ -100,7 +100,7 @@ To give a fast input I've introduced 3 important symbol:
 3.  **$**
     > This tag introduce a php variable inside an **ON** or an **IN** tag, **not outside**. When you will insert it leave a white space before and after the elements around it
     
-    >*e.g. :* **on** div element=" **$variable** "
+    >*e.g :* **on** div element=" **$variable** "
     
 ##PHP and Scripts
 **SWAM** is fully compatible with the PHP (you must declare **in** php) and the other language like Java (you must declare **in** script)

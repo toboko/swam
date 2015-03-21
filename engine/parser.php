@@ -1,4 +1,8 @@
 <?php
+############################################
+##            LICENSE AFL3.0              ##
+## Copyright (c) 2015-2016 Nicola Bombaci ##
+############################################
 
 class swam{
 	private	$next;
@@ -239,8 +243,6 @@ class swam{
                     }
                     break;
             }
-            if ($current == '') ;
-            else ;
         }
 		return 0;
 	}
