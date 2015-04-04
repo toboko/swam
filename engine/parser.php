@@ -9,13 +9,23 @@ class swam{
 	private $workit;
 	public  $printer;
 	public 	$temp;
-	public  $file  		= "./engine/write.php";	
+	public  $file  		= "./engine/temp.php";	
 	public 	$debug_mode = false;
 
 	function __construct($workit){
 		$this->workit = $workit;
-		$this->temp   = fopen($this->file, 'wr+');
-		fwrite($this->temp,"<?php\n");
+
+		if (file_exists($this->file)) {
+
+			$this->file = "./engine/".rand(0,9999).".php";
+			$this->temp = fopen($this->file, 'wr+');
+			fwrite($this->temp,"<?php\n");
+		}
+		else{
+
+			$this->temp   = fopen($this->file, 'wr+');
+			fwrite($this->temp,"<?php\n");
+		}
 	}
 
 	private function check_on($row,$i){
