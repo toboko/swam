@@ -7,6 +7,8 @@
 
 The language is python like and require the presence of the tabs. Every line is considered like a node of tree, who is on top is the father, who is under the father is a son and so on
 
+Try the live code [HERE](http://nicolabombaci.com/project/code/swam.php "SWAM Live Code")
+
 ##Structure
 
 ####Container
