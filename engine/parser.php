@@ -9,23 +9,13 @@ class swam{
 	private $workit;
 	public  $printer;
 	public 	$temp;
-	public  $file  		= "./engine/temp.php";	
+	public  $file;	
 	public 	$debug_mode = false;
 
-	function __construct($workit){
+	function __construct($workit, $file){
 		$this->workit = $workit;
-
-		if (file_exists($this->file)) {
-
-			$this->file = "./engine/".rand(0,9999).".php";
-			$this->temp = fopen($this->file, 'wr+');
-			fwrite($this->temp,"<?php\n");
-		}
-		else{
-
-			$this->temp   = fopen($this->file, 'wr+');
-			fwrite($this->temp,"<?php\n");
-		}
+		$this->temp   = fopen($file, 'a+');
+		fwrite($this->temp,"<?php\n");
 	}
 
 	private function check_on($row,$i){
@@ -116,7 +106,7 @@ class swam{
 		//Print the element inside line after the tag
 		$this->detail_read($i);
 		//Close Tag
-		$this->printer	.=	">';";
+		$this->printer	.=	">';\n";
 		//Update $this->next value
 		$this->next 	=	$i+1;
 		if($debug_mode){
@@ -134,7 +124,7 @@ class swam{
 			if (($line[$this->next][1]) <= $cur_pos) {
 				if($debug_mode)	echo "Equal or Min Values - <b>Closing $spoiler</b><br><hr>";
 
-				$this->printer	.=	"echo '</$spoiler>';";
+				$this->printer	.=	"echo '</$spoiler>';\n";
 				fwrite($this->temp,$this->printer);
 				$this->printer  =	"";
 				return 0;
@@ -143,9 +133,9 @@ class swam{
 		else{
 			if($debug_mode)	echo "<b>Last Line - Closing $spoiler</b><br><hr>";
 
-			$this->printer	.=	"echo '</$spoiler>';";
+			$this->printer	.=	"echo '</$spoiler>';\n";
 			fwrite($this->temp, $this->printer);
-			$this->printer  =	"";
+			fclose($this->temp);
 			return 1;
 		}
 	}
@@ -202,7 +192,7 @@ class swam{
 				if($debug_mode)	echo "Out of <b>$spoiler</b> tag - <b>Closing $spoiler</b><br><hr>";
 
 				if ($spoiler == 'php') ;
-				else $this->printer	.=	"</$spoiler>';";
+				else $this->printer	.=	"</$spoiler>';\n";
 				fwrite($this->temp,$this->printer);
 				$this->printer  =	"";
 				return 0;
@@ -212,8 +202,9 @@ class swam{
 			if($debug_mode)	echo "<b>Last Line - Closing $spoiler</b><br><hr>";
 
 			if ($spoiler == 'php') ;
-			else $this->printer	.=	"</$spoiler>';";
+			else $this->printer	.=	"</$spoiler>';\n";
 			fwrite($this->temp,$this->printer);
+			fclose($this->temp);
 			return 1;
 		}
 	}
@@ -230,7 +221,7 @@ class swam{
 		$current	=   $line[$i][0];
         while($current) {
             $element    = $this->workit->get_string_between($current, " ", " ");
-            $current = $this->workit->delete_first_tag($current, " " . $element);
+            $current 	= $this->workit->delete_first_tag($current, " " . $element);
             $sign       = $element[0];
             switch($sign){
                 case '$':
