@@ -127,8 +127,9 @@ Some attributes like **a**, **strong**, **little**, **big**, etc. can be inserte
 
 This will produce
 ```html
-  <p>This is an exanoke to <a href="example.php">Understand</a>
-    My <strong>Idea</strong>. Enjoy it </p>```
+<p>This is an exanoke to <a href="example.php">Understand</a>
+  My <strong>Idea</strong>. Enjoy it </p>
+```
 
 ## PHP and Scripts
 **SWAM** is fully compatible with the PHP (you must declare **in** php) and the other language like Java (you must declare **in** script)
