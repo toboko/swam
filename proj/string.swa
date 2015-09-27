@@ -3,16 +3,6 @@ on html
 		in title
 			HI SWAM
 	on body
-		in php
-			$max = 3;
-			$max2 = 5;
-			$totale = $max + $max2;
-			echo $totale;
-		on nav #navigation
-			on ul
-				in li
-					Ciao
-				in li
-					Menu
-				in li
-					Get This
+		on dl
+			in p
+				This parser is cool |strong [Oh' yeah]

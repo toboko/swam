@@ -9,10 +9,11 @@ class swam{
 	private $workit;
 	public  $printer;
 	public 	$temp;
-	public  $file;	
-	public 	$debug_mode = false;
+	public  $file;
+	public 	$debug_mode = null;
 
 	function __construct($workit, $file){
+		$this->debug_mode = $workit->debug_mode;
 		$this->workit = $workit;
 		$this->temp   = fopen($file, 'a+');
 		fwrite($this->temp,"<?php\n");
@@ -153,11 +154,11 @@ class swam{
 		switch ($spoiler) {
 			case 'php':
 				break;
-			
+
 			default:
 				$this->printer .= "echo '<";
 				//Insert name of tag
-				$this->printer .=  	$spoiler;	
+				$this->printer .=  	$spoiler;
 				break;
 		}
 
@@ -182,7 +183,7 @@ class swam{
 
 			while (((($line[$this->next][1]) - $cur_pos) == 1 ) && ($this->check($line[$this->next][0],$this->next) == 1)) {
 				if($debug_mode)	echo "Next line is a content of <b>$spoiler</b><br><hr>";
-
+				//Reading the content inside the tag in
 				$this->content_read($this->next);
 				if($debug_mode)	echo "<b>Reading content on line $this->next</b><br>";
 
@@ -208,14 +209,23 @@ class swam{
 			return 1;
 		}
 	}
-
+	//This function read the content
+	//Is used for in tag
 	private function content_read($i){
+		//$current is the line passed
 		$current	= $this->workit->line[$i][0];
+		//fixing the escape chars
+		$current	=	$this->escape_str($current);
+		//removing " " after and before $current
 		$current 	= trim($current, " ");
+		//if $current is empty don't print anything
 		if ($current == '') ;
-		else $this->printer  =   $this->printer.$current;
+		//else print $current and its content
+		else $this->special_str($current);
 		return 0;
 	}
+	//This function read the details inside a tag
+	//Is used for on tag
 	private function detail_read($i){
 		$line   	=   $this->workit->line;
 		$current	=   $line[$i][0];
@@ -245,6 +255,47 @@ class swam{
                     break;
             }
         }
+		return 0;
+	}
+	//This function prevent to escape dangerous chars
+	private function escape_str($string) {
+		$string = str_replace("'", "\'", $string);
+		return $string;
+	}
+	//This function find special tag inside a content
+	private function special_str($string) {
+		$tok 	=	strtok($string, " ");
+		while ($tok !== false) {
+			$spec = $tok{0};
+			$tag	=	substr($tok, 1 , strlen($tok) - 1);
+			switch ($spec) {
+				case '|':
+					$this->printer  =   $this->printer." <".$tag." ";
+					$tok = strtok(" ");
+
+					while ($tok{0} != "[") {
+						$this->printer  =   $this->printer.$tok." ";
+						$tok = strtok(" ");
+					}
+
+					$this->printer  =   $this->printer.">".substr($tok, 1 , strlen($tok) - 1)." ";
+					$tok = strtok(" ");
+
+					while ($tok{strlen($tok) - 1} != "]") {
+						$this->printer  =   $this->printer.$tok." ";
+						$tok = strtok(" ");
+					}
+
+					$this->printer	=		$this->printer.substr($tok, 0 , strlen($tok) - 2);
+					$this->printer  =   $this->printer."</".$tag."> ";
+					break;
+				default:
+					$this->printer  =   $this->printer.$tok." ";
+					break;
+			}
+
+	    $tok = strtok(" ");
+		}
 		return 0;
 	}
 }

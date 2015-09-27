@@ -9,5 +9,7 @@ include("workit.php");
 include("debug.php");
 include("parser.php");
 
-$workit	= new workit();
+$debug_mode = false;
+
+$workit	= new workit($debug_mode);
 $debug 	= new debug($workit);
