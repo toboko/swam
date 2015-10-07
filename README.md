@@ -1,5 +1,5 @@
 # SWAM [by Nicola Bombaci](http://nicolabombaci.com/ "Nicola Bombaci Webpage")
-#### Short Web Acronyms Merged
+### Short Web Acronyms Merged
 <img style="float:right" src="./swam.png">
 ### [Link to the official page](http://nicolabombaci.com/project/swam "SWAM") - [LICENSE](http://www.tldrlegal.com/l/afl3 "AFL3")
 
@@ -9,9 +9,34 @@ The language is python like and require the presence of the tabs. Every line is 
 
 Try the live code [HERE](http://nicolabombaci.com/project/code/swam.php "SWAM Live Code")
 
+## How to
+### Install
+Add to your index file the **library**
+
+    include './engine/swam.php';
+
+And this is it!
+
+### Programming
+
+Every time you will create a new SWAM file (.swa), you can compile it only by updating your index file (in my case './index.php'). Let's click and check if everything is okay. A little debugger will show you the status of your work.
+
+In your path you will have two folder **/main** and **/proj**
+
+*/main* - contains the php files compiled by the parser from the /proj folder
+
+*/proj* - is your folder! Here you must put all your files writing in swam.
+
+You can create every kind of sub-folders or a files. The important thing is that everything will be contains inside your designated folders.
+
+*You can change the name of the main folders but remind to modify the settings file **/engine/common.php***
+
+Inside the **/engine/common.php** there's the array $settings where you can change the path's names or enable the debug mode visibile throw the index file.
+
+
 ## Structure
 
-#### Container
+### Container
 
 **on** *tag*
 
@@ -29,7 +54,7 @@ This will produce:
 <div><section></section></div>
 ```
 
-#### One line
+### One line
 
 **in** *tag*
 
@@ -49,7 +74,7 @@ This will produce:
 <p>Hello World this a test</p>
 ```
 
-#### Example On and In tag
+### Example On and In tag
 
 **on html**
 
@@ -206,4 +231,5 @@ on html
             </div>
         </section>
     </body>
-</html>```
+</html>
+```

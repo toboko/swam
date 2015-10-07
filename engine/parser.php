@@ -277,24 +277,28 @@ class swam{
 						$this->printer  =   $this->printer.$tok." ";
 						$tok = strtok(" ");
 					}
-
-					$this->printer  =   $this->printer.">".substr($tok, 1 , strlen($tok) - 1)." ";
-					$tok = strtok(" ");
-
-					while ($tok{strlen($tok) - 1} != "]") {
-						$this->printer  =   $this->printer.$tok." ";
-						$tok = strtok(" ");
+					//If there's only one word open and close in one step
+					if ($tok{0} == "[" &&  $tok{strlen($tok) - 1} == "]" ) {
+						$this->printer  =   $this->printer.">".substr($tok, 1, strlen($tok) - 2);
 					}
+					//If there are more than one words concat them
+					else {
+						$this->printer  =   $this->printer.">".substr($tok, 1 , strlen($tok) - 1)." ";
+						$tok = strtok(" ");
 
-					$this->printer	=		$this->printer.substr($tok, 0 , strlen($tok) - 2);
+						while ($tok{strlen($tok) - 1} != "]") {
+							$this->printer  =   $this->printer.$tok." ";
+							$tok = strtok(" ");
+						}
+						$this->printer	=		$this->printer.substr($tok, 0 , strlen($tok) - 1);
+					}
 					$this->printer  =   $this->printer."</".$tag."> ";
 					break;
 				default:
 					$this->printer  =   $this->printer.$tok." ";
 					break;
 			}
-
-	    $tok = strtok(" ");
+			$tok = strtok(" ");
 		}
 		return 0;
 	}

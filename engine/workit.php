@@ -15,8 +15,8 @@ class workit{
 	//Debug Mode
 	public $debug_mode = null;
 
-	function __construct($debug){
-		$this->debug_mode = $debug;
+	function __construct($settings){
+		$this->debug_mode = $settings['debug'];
 	}
 
 	public function get_string_between($string, $start, $end){
@@ -44,7 +44,7 @@ class workit{
 			if($debug_mode) echo "<b>token '".$tok."'</b><br>";
 
 			$this->line[$a-1][0] = $tok;
-			
+
 			if($debug_mode) echo $this->line[$a-1][1]." Word = ".$this->line[$a-1][0]." <br>";
 
 			//Calculating the new token line
