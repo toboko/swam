@@ -1,21 +1,21 @@
 <?php
 ############################################
-##            LICENSE AFL3.0              ##
+##						LICENSE AFL3.0							##
 ## Copyright (c) 2015-2016 Nicola Bombaci ##
 ############################################
 
 class swam{
 	private	$next;
 	private $workit;
-	public  $printer;
+	public	$printer;
 	public 	$temp;
-	public  $file;
+	public	$file;
 	public 	$debug_mode = null;
 
 	function __construct($workit, $file){
 		$this->debug_mode = $workit->debug_mode;
 		$this->workit = $workit;
-		$this->temp   = fopen($file, 'a+');
+		$this->temp	 = fopen($file, 'a+');
 		fwrite($this->temp,"<?php\n");
 	}
 
@@ -27,15 +27,13 @@ class swam{
 			echo "Check Line '".$row."'<br>";
 			echo "Check Value '".$check."'<br>";
 		}
-		if($check ==  "on"){
-			$this->workit->line[$i][0]	=  	$this->workit->delete_first_tag($row," on");
+		if($check ==	"on"){
+			$this->workit->line[$i][0]	=		$this->workit->delete_first_tag($row," on");
 			if($debug_mode)	echo "<b>Control Passed</b><br><hr>";
-
 			return 1;
 		}
 		else{
 			if($debug_mode)	echo "<b>Control Not Passed</b><br><hr>";
-
 			return 0;
 		}
 	}
@@ -48,15 +46,13 @@ class swam{
 			echo "Check Line '".$row."'<br>";
 			echo "Check Value '".$check."'<br>";
 		}
-		if($check ==  "in"){
-			$this->workit->line[$i][0]	=  $this->workit->delete_first_tag($row," in");
+		if($check ==	"in"){
+			$this->workit->line[$i][0]	=	$this->workit->delete_first_tag($row," in");
 			if($debug_mode)	echo "<b>Control Passed</b><br><hr>";
-
 			return 1;
 		}
 		else{
 			if($debug_mode)	echo "<b>Control Not Passed</b><br><hr>";
-
 			return 0;
 		}
 	}
@@ -72,7 +68,7 @@ class swam{
 
 	public function read(){
 		$lenght 	= $this->workit->lenght;
-		$line  		= $this->workit->line;
+		$line			= $this->workit->line;
 		$debug_mode = $this->debug_mode;
 
 		for($i = 0; $i < $lenght-1 ; $i++){
@@ -88,7 +84,7 @@ class swam{
 
 	private function on_read($i){
 		$lenght 	= $this->workit->lenght;
-		$line   	= $this->workit->line;
+		$line	 	= $this->workit->line;
 		$debug_mode = $this->debug_mode;
 
 		//Current line
@@ -98,12 +94,12 @@ class swam{
 		//Open tag
 		$this->printer .= "echo '<";
 		//Insert name of tag
-		$this->printer .=  	$spoiler;
+		$this->printer .=		$spoiler;
 		if($debug_mode)	echo "<b>Opening $spoiler</b><br>";
 
 		//Extract the tag and change previous variable
 		$this->workit->line[$i][0] 		=	$this->workit->delete_first_tag($current," ".$spoiler);
-		$cur_pos						            =	$this->workit->line[$i][1];	//Save positions
+		$cur_pos											=	$this->workit->line[$i][1];	//Save positions
 		//Print the element inside line after the tag
 		$this->detail_read($i);
 		//Close Tag
@@ -127,7 +123,7 @@ class swam{
 
 				$this->printer	.=	"echo '</$spoiler>';\n";
 				fwrite($this->temp,$this->printer);
-				$this->printer  =	"";
+				$this->printer	=	"";
 				return 0;
 			}
 		}
@@ -143,8 +139,9 @@ class swam{
 
 	private function in_read($i){
 		$lenght 	= $this->workit->lenght;
-		$line   	= $this->workit->line;
+		$line	 	= $this->workit->line;
 		$debug_mode = $this->debug_mode;
+		$escape = true;
 
 		//Current line
 		$current		=	$this->workit->line[$i][0];
@@ -153,12 +150,18 @@ class swam{
 		//Open tag
 		switch ($spoiler) {
 			case 'php':
+				$escape = false;
+				break;
+
+			case 'script':
+				$escape = false;
 				break;
 
 			default:
+				$escape = true;
 				$this->printer .= "echo '<";
 				//Insert name of tag
-				$this->printer .=  	$spoiler;
+				$this->printer .=		$spoiler;
 				break;
 		}
 
@@ -166,7 +169,7 @@ class swam{
 
 		//Extract the tag and change previous variable
 		$this->workit->line[$i][0] 		=	$this->workit->delete_first_tag($current," ".$spoiler);
-		$cur_pos						=	$this->workit->line[$i][1];	//Save position
+		$cur_pos	=	$this->workit->line[$i][1];	//Save position
 		//Print the element inside line after the tag
 		$this->detail_read($i);
 		//Close Tag
@@ -184,7 +187,7 @@ class swam{
 			while (((($line[$this->next][1]) - $cur_pos) == 1 ) && ($this->check($line[$this->next][0],$this->next) == 1)) {
 				if($debug_mode)	echo "Next line is a content of <b>$spoiler</b><br><hr>";
 				//Reading the content inside the tag in
-				$this->content_read($this->next);
+				$this->content_read($this->next, $escape);
 				if($debug_mode)	echo "<b>Reading content on line $this->next</b><br>";
 
 				$this->next++;
@@ -195,7 +198,7 @@ class swam{
 				if ($spoiler == 'php') ;
 				else $this->printer	.=	"</$spoiler>';\n";
 				fwrite($this->temp,$this->printer);
-				$this->printer  =	"";
+				$this->printer	=	"";
 				return 0;
 			}
 		}
@@ -211,50 +214,49 @@ class swam{
 	}
 	//This function read the content
 	//Is used for in tag
-	private function content_read($i){
+	private function content_read($i, $escape){
 		//$current is the line passed
 		$current	= $this->workit->line[$i][0];
 		//fixing the escape chars
-		$current	=	$this->escape_str($current);
+		if ($escape) {
+			$current	=	$this->escape_str($current);
+		}
 		//removing " " after and before $current
 		$current 	= trim($current, " ");
 		//if $current is empty don't print anything
 		if ($current == '') ;
 		//else print $current and its content
-		else $this->special_str($current);
+		else $this->special_str($current, $escape);
 		return 0;
 	}
 	//This function read the details inside a tag
 	//Is used for on tag
 	private function detail_read($i){
-		$line   	=   $this->workit->line;
-		$current	=   $line[$i][0];
-        while($current) {
-            $element    = $this->workit->get_string_between($current, " ", " ");
-            $current 	= $this->workit->delete_first_tag($current, " " . $element);
-            $sign       = $element[0];
-            switch($sign){
-                case '$':
-                    $this->printer = $this->printer . "'.".$element.".'";
-                    break;
-                case '#':
-                    $element       = substr($element, 1);
-                    $this->printer = $this->printer . " id=\"".$element."\"";
-                    break;
-                case '@':
-                    $element       = substr($element, 1);
-                    $this->printer = $this->printer . " class=\"".$element."\"";
-                    break;
-                default:
-                    if(strlen($element)>1) {
-                        $this->printer = $this->printer . " " . $element;
-                    }
-                    else{
-                        $this->printer = $this->printer .  $element;
-                    }
-                    break;
-            }
-        }
+		$line			=	$this->workit->line;
+		$current	=	$line[$i][0];
+		$element	=	strtok($current, " ");
+		while($element !== false) {
+			$sign		= $element{0};
+			switch($sign) {
+				case '$':
+					$this->printer = $this->printer . "'.".$element.".'";
+					break;
+				case '#':
+					$element			 = substr($element, 1);
+					$this->printer = $this->printer . " id=\"".$element."\"";
+					break;
+				case '@':
+					$element			 = substr($element, 1);
+					$this->printer = $this->printer . " class=\"".$element."\"";
+					break;
+				default:
+					//This status is checked to optimize the white space useless
+					if (strlen($element) > 1)	$this->printer = $this->printer . " " . $element;
+					else $this->printer = $this->printer . $element;
+					break;
+			}
+			$element 	=	strtok(" ");
+		}
 		return 0;
 	}
 	//This function prevent to escape dangerous chars
@@ -263,43 +265,72 @@ class swam{
 		return $string;
 	}
 	//This function find special tag inside a content
-	private function special_str($string) {
+	private function special_str($string, $escape) {
+		//Taking string trigger
 		$tok 	=	strtok($string, " ");
+		//Checking every words inside a lide
 		while ($tok !== false) {
+			//Selecting the first char to know if is a special char
 			$spec = $tok{0};
+			//If it is a special char the next chars are the tag to recognize the element
 			$tag	=	substr($tok, 1 , strlen($tok) - 1);
+			//Let's check if there's a special char
 			switch ($spec) {
 				case '|':
-					$this->printer  =   $this->printer." <".$tag." ";
-					$tok = strtok(" ");
-
-					while ($tok{0} != "[") {
-						$this->printer  =   $this->printer.$tok." ";
+					//If the tag is php we will follow this procedure
+					if ($tag == 'php') {
+						$this->printer	=	 $this->printer."';\n";
 						$tok = strtok(" ");
-					}
-					//If there's only one word open and close in one step
-					if ($tok{0} == "[" &&  $tok{strlen($tok) - 1} == "]" ) {
-						$this->printer  =   $this->printer.">".substr($tok, 1, strlen($tok) - 2);
-					}
-					//If there are more than one words concat them
-					else {
-						$this->printer  =   $this->printer.">".substr($tok, 1 , strlen($tok) - 1)." ";
-						$tok = strtok(" ");
-
-						while ($tok{strlen($tok) - 1} != "]") {
-							$this->printer  =   $this->printer.$tok." ";
+						while ($tok{strlen($tok) - 1} != "|") {
+							$this->printer	=	 $this->printer.$tok." ";
 							$tok = strtok(" ");
 						}
-						$this->printer	=		$this->printer.substr($tok, 0 , strlen($tok) - 1);
+						$this->printer	=	 $this->printer.substr($tok, 0, strlen($tok) - 1)."\necho '";
 					}
-					$this->printer  =   $this->printer."</".$tag."> ";
+					//If the tag is not php is something in html
+					//Let's follow this procedure
+					else {
+						$this->printer	=	 $this->printer." <".$tag." ";
+						$tok = strtok(" ");
+
+						while ($tok{0} != "[") {
+							$this->printer	=	 $this->printer.$tok." ";
+							$tok = strtok(" ");
+						}
+						//If there's only one word open and close in one step
+						if ($tok{0} == "[" &&	$tok{strlen($tok) - 1} == "]" ) {
+							$this->printer	=	 $this->printer.">".substr($tok, 1, strlen($tok) - 2);
+						}
+						//If there are more than one words concat them
+						else {
+							$this->printer	=	 $this->printer.">".substr($tok, 1 , strlen($tok) - 1)." ";
+							$tok = strtok(" ");
+
+							while ($tok{strlen($tok) - 1} != "]") {
+								$this->printer	=	 $this->printer.$tok." ";
+								$tok = strtok(" ");
+							}
+							$this->printer	=		$this->printer.substr($tok, 0 , strlen($tok) - 1);
+						}
+						$this->printer	=	 $this->printer."</".$tag.">";
+					}
+					break;
+				case '$':
+					if ($escape) {
+						$tag = str_replace("\'", "'", $tag);
+						$this->printer	=	 $this->printer."'.$".$tag.".' ";
+					}
+					else {
+						$this->printer	=	 $this->printer.$tok." ";
+					}
 					break;
 				default:
-					$this->printer  =   $this->printer.$tok." ";
+					$this->printer	=	 $this->printer.$tok." ";
 					break;
 			}
 			$tok = strtok(" ");
 		}
+		$this->printer = substr($this->printer, 0 , strlen($this->printer) - 1);
 		return 0;
 	}
 }

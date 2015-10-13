@@ -87,11 +87,18 @@ class compile{
 				$in = substr($element, 0, -3);
 				$file_found = $this->foundFolderFiles($this->lfiles, $in);
 				if ($file_found != null) {
-					echo "<b>File found</b> ".$file_found."<br>";
 					if (date('U',filemtime($folder."/".$element)) > date('U',filemtime($file_found))) {
-						$this->action($this->workit, $this->debug, $folder."/".$element, $file_found);
-						echo "<b>File</b> ".$file_found." <b>UPDATED</b><br>";
+						echo "<b>File changed</b> ".$file_found."<br>";
+						echo "<p>- - - - - - - - - - - - - - - - - - - - - - - -</p>";
+						try {
+							$this->action($this->workit, $this->debug, $folder."/".$element, $file_found);
+							echo "<b>File updated</b> ".$file_found."<br>";
+						} catch (Exception $e) {
+							echo "<b>Error</b>$file_found</b><hr>";
+						}
 					}
+					echo "<b>File verified</b> ".$file_found."<br>";
+					echo "<p>- - - - - - - - - - - - - - - - - - - - - - - -</p>";
 				}
 				else {
 					$pieces = explode("/", $folder);
@@ -122,9 +129,9 @@ class compile{
 		//Let's split the string
 		$workit->tokenize($code);
 		//Debugging the code
-		echo "<b>$input</b> DEBUGGING <br>";
+		echo "<b>Debugging</b>$input</b><br>";
 		if($debug->syntax_checking()){
-			echo "<b>$input</b> ERROR<hr>";
+			echo "<b>Error</b>$input</b><hr>";
 			return 1;
 		}
 		else{
@@ -134,7 +141,7 @@ class compile{
 			$parser = new swam($workit, $output);
 			//Writing code
 			$parser->read();
-			echo "<b>$input</b> COMPILED <br>";
+			echo "<b>File compiled</b>$input</b><br>";
 			return 0;
 		}
 	}

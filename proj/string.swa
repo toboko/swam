@@ -6,5 +6,8 @@ on html
 		on ul
 			in li
 				ciao a tutti
-		in p
-			This is a test |strong [this is a test for you] be careful asdasd
+			in php
+				$ciao = 34;
+				$string = "this is an house";
+			in p style=" $string "
+				ax $string that's cool yes man

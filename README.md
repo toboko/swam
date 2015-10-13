@@ -33,7 +33,6 @@ You can create every kind of sub-folders or a files. The important thing is that
 
 Inside the **/engine/common.php** there's the array $settings where you can change the path's names or enable the debug mode visibile throw the index file.
 
-
 ## Structure
 
 ### Container
@@ -76,20 +75,19 @@ This will produce:
 
 ### Example On and In tag
 
-**on html**
+>**on html**
 
->**on head**
+>>**on head**
 
->>**in meta**
+>>>**in meta**
 
->**on body**
+>>**on body**
 
->>**in p**
+>>>**in p**
 
->>>**Hello World**
+>>>>**Hello World**
 
->>**on div**
-
+>>>**on div**
 
 This will produce:
 
@@ -104,6 +102,24 @@ This will produce:
     </body>
 </html>
 ```
+
+## PHP and Scripts
+**SWAM** is fully compatible with the PHP (you must declare **in** php) and the other language like Java (you must declare **in** script)
+>**in** php
+
+>>$max = 32;
+
+>>$set = true;
+
+>>if($set) echo $max;
+
+
+>**in** script type="text/javascript"
+
+>>var user = {
+>>name: 'Dolly'};
+
+>>sprintf('Hello %(name)s', user);
 
 ## General Values
 
@@ -123,7 +139,7 @@ To give a fast input I've introduced 3 important symbol:
 2.  **@**
     > This tag substitue the syntax **class="myclass"** with **@myclass**
 3.  **$**
-    > This tag introduce a php variable inside an **ON** or an **IN** tag, **not outside**. When you will insert it leave a white space before and after the elements around it
+    > This tag introduce a php variable inside an **ON** or an **IN** tag. When you will insert it leave a white space before and after the elements around it
 
     >*Example :* **on** div element=" **$variable** "
 
@@ -152,61 +168,64 @@ Some attributes like **a**, **strong**, **little**, **big**, etc. can be inserte
 
 This will produce
 ```html
-<p>This is an exanoke to <a href="example.php">Understand</a>
+<p>This is an example to <a href="example.php">Understand</a>
   My <strong>Idea</strong>. Enjoy it </p>
 ```
 
-## PHP and Scripts
-**SWAM** is fully compatible with the PHP (you must declare **in** php) and the other language like Java (you must declare **in** script)
->**in** php
+You can also introduce a php script inside a tag with the same method, but you need only to open the tag **|php**, write your code and the last word will require (on the last position) the char | like in this **example**:
+> **in** p
 
->>$max = 32;
+>> this parser **|php** $calc = 45*32; echo $calc;| and will continue
 
->>$set = true;
+The important thing is that, in this case everything is in a single line. If you have already created a php script, just concat some variable that you need like:
+> **in** php
 
->>if($set) echo $max;
+>> $ex = "Like this";
 
+> **in** p
 
->**in** script type="text/javascript"
+>> let's type something **$ex**
 
->>var user = {
->>name: 'Dolly'};
+This will produce:
 
->>sprintf('Hello %(name)s', user);
+```html
+<p>let's type something Like this</p>
+```
 
 ## Example
-on html
->on head
+>on html
 
->>in meta name="Welcome to SWAM"
+>>on head
 
->>in style type="text/css"
->>>p{padding: 15px 0 0 15px}
+>>>in meta name="Welcome to SWAM"
 
->>>\#id1{background:red;width:415px;height:300px}
+>>>in style type="text/css"
+>>>>p{padding: 15px 0 0 15px}
 
->>>\#id2{background:orange;width:315px;height:200px;margin:auto}
+>>>>\#id1{background:red;width:415px;height:300px}
 
->>>\#id3{background:black;width:215px;height:100px;margin:auto}
+>>>>\#id2{background:orange;width:315px;height:200px;margin:auto}
 
->on body
+>>>>\#id3{background:black;width:215px;height:100px;margin:auto}
 
->>in strong
->>>Example
+>>on body
 
->>on section
+>>>in strong
+>>>>Example
 
->>>on div #id1
->>>>in p
->>>>>Section 1
+>>>on section
 
->>>>on div #id2
+>>>>on div #id1
 >>>>>in p
->>>>>>Section 2
+>>>>>>Section 1
 
->>>>>on div #id3
->>>>>>in p style="color:white"
->>>>>>>Section 3
+>>>>>on div #id2
+>>>>>>in p
+>>>>>>>Section 2
+
+>>>>>>on div #id3
+>>>>>>>in p style="color:white"
+>>>>>>>>Section 3
 
 ## Results:
 
