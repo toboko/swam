@@ -8,14 +8,3 @@
 include("workit.php");
 include("debug.php");
 include("parser.php");
-//Setttings of your project
-$settings = array(
-	//Paths
-	'uncompiled' => './proj',
-	'compiled' => './main',
-	//Debug Mode
-	'debug' => false
-);
-
-$workit	= new workit($settings);
-$debug 	= new debug($workit);

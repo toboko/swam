@@ -3,35 +3,35 @@
 <img style="float:right" src="./swam.png">
 ### [Link to the official page](http://nicolabombaci.com/project/swam "SWAM") - [LICENSE](http://www.tldrlegal.com/l/afl3 "AFL3")
 
-**SWAM** is a great alternative to modern languages and formatting web programming such as HTML and PHP. These languages are often filled with tags that during large works, generate projects slow and difficult to understand, for this reason **SWAM** promises to catalog all the HTML tags and implement the optimal PHP to have a website or a web application backward compatible, fluid and dynamics.
-
+SWAM (Short Web Acronyms Merged) is a great alternative for the Front-End developers. HTML is often filled with tags that during large works, generate projects slow and difficult to understand, for this reason SWAM promises to catalog all the HTML tags to have a website backward compatible, fluid and dynamics.
 The language is python like and require the presence of the tabs. Every line is considered like a node of tree, who is on top is the father, who is under the father is a son and so on
 
-Try the live code [HERE](http://nicolabombaci.com/project/code/swam.php "SWAM Live Code")
+## Try the live code [HERE](http://nicolabombaci.com/project/code/swam.php "SWAM Live Code")
+
+You can easily try the language and understand the syntax of SWAM. It's easy, it's fast, it could be yours. Let's click to discover. It's free
 
 ## How to
 ### Install
-Add to your index file the **library**
+Download the project from [Github](https://github.com/Nilsbb/swam "GitHub") and copy `swam-min.php` in your folder
 
-    include './engine/swam.php';
+Add in your *php* file the **library**
+
+`include './path/swam-min.php';`
+
+Get the contents from a file
+
+`$code = file_get_contents("./path/string.swa");`
+
+And print your parsed file
+
+`echo $swam->parse($code);`
 
 And this is it!
-
 ### Programming
 
-Every time you will create a new SWAM file (.swa), you can compile it only by updating your index file (in my case './index.php'). Let's click and check if everything is okay. A little debugger will show you the status of your work.
+Every time you will create a new SWAM file (.swa), you can compile it only by pass through the piece of code into the class of **swam** and exectue the parsing `$swam->parse($string)`. A little debugger will show you the status of your work.
 
-In your path you will have two folder **/main** and **/proj**
-
-*/main* - contains the php files compiled by the parser from the /proj folder
-
-*/proj* - is your folder! Here you must put all your files writing in swam.
-
-You can create every kind of sub-folders or a files. The important thing is that everything will be contains inside your designated folders.
-
-*You can change the name of the main folders but remind to modify the settings file **/engine/common.php***
-
-Inside the **/engine/common.php** there's the array $settings where you can change the path's names or enable the debug mode visibile throw the index file.
+There is a **debug mode** that you can easily activate, opening the file `swam-min.php` and at start you can see the variable `$debug` set on false. Turn on `true` and you can see how SWAM is working. It is very useful to check and fix some mistakes inside your code.
 
 ## Structure
 
@@ -57,7 +57,7 @@ This will produce:
 
 **in** *tag*
 
-IN open and close in one line. It is helpful for **p** , **h1** , **script** , **meta** , **style** , **php script** and all kind of elements that containing text or don't accept other things inside themself. If you want to insert something inside an IN tag for example you must start a new paragraph with one more tabs than the previous element, if the next paraghraps will have the same number of tabs you are still writing in the same in tag until the number of tabs will be less than the father.
+IN open and close in one line. It is helpful for **p** , **h1** , **script** , **meta** , **style** , **php script** and all kind of elements that containing text or don`t accept other things inside themself. If you want to insert something inside an IN tag for example you must start a new paragraph with one more tabs than the previous element, if the next paraghraps will have the same number of tabs you are still writing in the same in tag until the number of tabs will be less than the father.
 
 *Example*
 
@@ -103,23 +103,15 @@ This will produce:
 </html>
 ```
 
-## PHP and Scripts
-**SWAM** is fully compatible with the PHP (you must declare **in** php) and the other language like Java (you must declare **in** script)
->**in** php
-
->>$max = 32;
-
->>$set = true;
-
->>if($set) echo $max;
-
+## JavaScripts
+**SWAM** is fully compatible with JavaScript
 
 >**in** script type="text/javascript"
 
 >>var user = {
 >>name: 'Dolly'};
 
->>sprintf('Hello %(name)s', user);
+>>sprintf(`Hello %(name)s', user);
 
 ## General Values
 
@@ -132,16 +124,12 @@ The important thing is use the white space only for declare a new value and the 
 
 To give a fast input I've introduced 3 important symbol:
 
-1.  **#**
+1.	**#**
 
     > This tag substitue the syntax **id="myid"** with **#myid**
+2.	**@**
 
-2.  **@**
     > This tag substitue the syntax **class="myclass"** with **@myclass**
-3.  **$**
-    > This tag introduce a php variable inside an **ON** or an **IN** tag. When you will insert it leave a white space before and after the elements around it
-
-    >*Example :* **on** div element=" **$variable** "
 
 ### Internal tag
 Some attributes like **a**, **strong**, **little**, **big**, etc. can be inserted inside a **in** tag. For this reason, when you are typing a text and you want a link or a font more "strong" you must use the key **|**tag. Next words you will insert will recognize like attributes of this tag. Finishing this step, you can introduce the content using squares brackets **[Contents of the tag]**
@@ -170,26 +158,6 @@ This will produce
 ```html
 <p>This is an example to <a href="example.php">Understand</a>
   My <strong>Idea</strong>. Enjoy it </p>
-```
-
-You can also introduce a php script inside a tag with the same method, but you need only to open the tag **|php**, write your code and the last word will require (on the last position) the char | like in this **example**:
-> **in** p
-
->> this parser **|php** $calc = 45*32; echo $calc;| and will continue
-
-The important thing is that, in this case everything is in a single line. If you have already created a php script, just concat some variable that you need like:
-> **in** php
-
->> $ex = "Like this";
-
-> **in** p
-
->> let's type something **$ex**
-
-This will produce:
-
-```html
-<p>let's type something Like this</p>
 ```
 
 ## Example

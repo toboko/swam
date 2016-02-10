@@ -1,13 +1,3 @@
-on html
-	on head
-		in title
-			HI SWAM
-	on body
-		on ul
-			in li
-				ciao a tutti
-			in php
-				$ciao = 34;
-				$string = "this is an house";
-			in p style=" $string "
-				ax $string that's cool yes man
+on div
+	in p
+		Hello World!
