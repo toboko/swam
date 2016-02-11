@@ -33,6 +33,28 @@ Every time you will create a new SWAM file (.swa), you can compile it only by pa
 
 There is a **debug mode** that you can easily activate, opening the file `swam-min.php` and at start you can see the variable `$debug` set on false. Turn on `true` and you can see how SWAM is working. It is very useful to check and fix some mistakes inside your code.
 
+
+## Comments
+Write a comment is simple. It can just work only if you are using a whole line. The syntax used is like every language, you must use **//** and so on.
+
+An example
+
+> **on** div
+
+>> **//** This line is a comment
+
+>> **in** p
+
+>>> Here I am
+
+Be careful if you are typing a double slash inside a line with code, this will be removed and could cause error parsing
+
+An example
+
+> **in** p **//** I cannot stay here
+
+>> Ops. 
+
 ## Structure
 
 ### Container
