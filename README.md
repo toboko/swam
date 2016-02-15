@@ -43,7 +43,7 @@ An example
 
 >> **//** This line is a comment
 
->> **in** p
+>> **on** p
 
 >>> Here I am
 
@@ -51,76 +51,99 @@ Be careful if you are typing a double slash inside a line with code, this will b
 
 An example
 
-> **in** p **//** I cannot stay here
+> **on** p **//** I cannot stay here
 
->> Ops. 
+>> Ops.
 
 ## Structure
 
+### The on tag
+
+In HTML to open some tag is used the syntax
+
+```html
+<html></html>
+```
+
+In SWAM to open the tag you can easily use the syntax
+
+> **on** html
+
 ### Container
 
-**on** *tag*
-
-ON is a container tag. It is helpful for **div** , **section** , **form** and all kind of elements that are containing other elements. If you want to insert something inside an ON tag for example you must start a new paragraph with one more tab than the previous element.
+ON is a general container tag. It is helpful for every kind of tags like: **div** , **section** , **form** , **p** , and others. If you want to create a multilevel tag, you must start the new paragraph with one more tab than the previous element.
 
 *Example*
 
->**on div**
+> **on** div
 
->>**on section**
+>> **on** section
 
 This will produce:
 
 ```html
-<div><section></section></div>
+<div>
+  <section></section>
+</div>
 ```
 
-### One line
+### In line
 
-**in** *tag*
-
-IN open and close in one line. It is helpful for **p** , **h1** , **script** , **meta** , **style** , **php script** and all kind of elements that containing text or don`t accept other things inside themself. If you want to insert something inside an IN tag for example you must start a new paragraph with one more tabs than the previous element, if the next paraghraps will have the same number of tabs you are still writing in the same in tag until the number of tabs will be less than the father.
+If you want to insert something inside an tag, you must start a new paragraph with one or more tabs than the previous element. You will write in the same tag until the number of tabs will be less than the father or a new tag has been inserted in.
 
 *Example*
 
->**in p**
+> **on** p
 
->>**Hello World**
+>> Hello World
 
->>**This is a test**
+>>> This is a test
+
+>> **on** strong
+
+>>> cool
+
+> **on** h1
+
+>> Here
 
 This will produce:
 
 ```html
-<p>Hello World this a test</p>
+<p>Hello World This a test <strong>cool</strong></p>
+<h1>Here</h1>
 ```
 
-### Example On and In tag
+### Example
 
->**on html**
+> **on** html
 
->>**on head**
+>> **on** head
 
->>>**in meta**
+>>> **on** title
 
->>**on body**
+>>>> SWAM
 
->>>**in p**
+>> **on** body
 
->>>>**Hello World**
+>>> **on** p
 
->>>**on div**
+>>>> Hello World
+
+>>> **on** div
+
+>>>> Nothing
 
 This will produce:
 
 ```html
 <html>
     <head>
-        <meta>
+        <title>SWAM</title>
     </head>
     <body>
         <p>Hello World</p>
-        <div></div>
+        <div>Nothing</div>
     </body>
 </html>
 ```
@@ -128,103 +151,62 @@ This will produce:
 ## JavaScripts
 **SWAM** is fully compatible with JavaScript
 
->**in** script type="text/javascript"
+> **on** script type="text/javascript"
 
->>var user = {
->>name: 'Dolly'};
+>> var user = {
+>> name: 'Dolly'};
 
->>sprintf(`Hello %(name)s', user);
+>>sprintf('Hello %(name)s', user);
 
-## General Values
-
-### Fast attributes
- **SWAM** is fully backward compatible. You can use instead a ON tag or a IN tag, the same syntax of HTML.
+## Fast attributes
+ **SWAM** is fully backward compatible. You can use instead a ON tag, the same syntax of HTML.
 
 > *Example* : **on** div **id**="new" **style**="margin-top:20em"
 
 The important thing is use the white space only for declare a new value and the tab only for the row (the hierarchy of the nodes)
 
-To give a fast input I've introduced 3 important symbol:
+To give a fast input I've introduced 2 important symbol:
 
 1.	**#**
 
     > This tag substitue the syntax **id="myid"** with **#myid**
-2.	**@**
+2.	**.**
 
-    > This tag substitue the syntax **class="myclass"** with **@myclass**
-
-### Internal tag
-Some attributes like **a**, **strong**, **little**, **big**, etc. can be inserted inside a **in** tag. For this reason, when you are typing a text and you want a link or a font more "strong" you must use the key **|**tag. Next words you will insert will recognize like attributes of this tag. Finishing this step, you can introduce the content using squares brackets **[Contents of the tag]**
-
-*P.s Remember to leave a space after every single words. You could do a parsing fault*
-
-*Example:*
-
-**Error**
-> |ahref=""[Try].Ok let's go
-
-> |a href=""[Try].Ok let's go
-
-> |a href="" [Try]. Ok let's go
-
-**Correct**
-> |a href="" [Try] . Ok let's go
-
-**Example**
-> **in** p
->> This is an example to |a href="example.php" [Understand]
-
->> My |strong [Idea] . Enjoy it
-
-This will produce
-```html
-<p>This is an example to <a href="example.php">Understand</a>
-  My <strong>Idea</strong>. Enjoy it </p>
-```
+    > This tag substitue the syntax **class="myclass"** with **.myclass**
 
 ## Example
->on html
 
->>on head
+> on html
 
->>>in meta name="Welcome to SWAM"
+>> on head
 
->>>in style type="text/css"
->>>>p{padding: 15px 0 0 15px}
+>>>on meta name="Welcome to SWAM"
 
->>>>\#id1{background:red;width:415px;height:300px}
+>> on body
 
->>>>\#id2{background:orange;width:315px;height:200px;margin:auto}
+>>> on strong
+>>>> Example
 
->>>>\#id3{background:black;width:215px;height:100px;margin:auto}
+>>> on section
 
->>on body
+>>>> on div #id1
+>>>>> on p
+>>>>>> Section 1
 
->>>in strong
->>>>Example
+>>>>> on div #id2
+>>>>>> on p
+>>>>>>> Section 2
 
->>>on section
-
->>>>on div #id1
->>>>>in p
->>>>>>Section 1
-
->>>>>on div #id2
->>>>>>in p
->>>>>>>Section 2
-
->>>>>>on div #id3
->>>>>>>in p style="color:white"
->>>>>>>>Section 3
+>>>>>> on div #id3
+>>>>>>> on p style="color:white"
+>>>>>>>> Section 3
 
 ## Results:
 
 ```html
 <html>
     <head>
-        <meta name="Welcome to SWAM">
-        <style type="text/css">p{padding: 15px 0 0 15px} #id1{background:red;width:415px;height:300px} #id2{background:orange;width:315px;height:200px;margin:auto} #id3{background:black;width:215px;height:100px;margin:auto}
-        </style>
+        <meta name="Welcome to SWAM"
     </head>
     <body>
         <strong>Example</strong>
