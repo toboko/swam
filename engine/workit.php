@@ -51,6 +51,8 @@ class workit{
 				$this->line[$a][0] = preg_replace ('/[\\t]/', '', $tok, -1, $count);
 				//Saving the result of the previous function inside the array
 				$this->line[$a][1] = $count;
+				//Saving the words' counter
+				$this->line[$a][2] = count(str_word_count($this->line[$a][0], 1, "0..9"));
 				if($debug_mode) echo $this->line[$a][1]." Word = '".$this->line[$a][0]."' <br>";
 				//Run the array
 				$a++;

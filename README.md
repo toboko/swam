@@ -172,7 +172,7 @@ To give a fast input I've introduced 2 important symbol:
     > This tag substitue the syntax **id="myid"** with **#myid**
 2.	**.**
 
-    > This tag substitue the syntax **class="myclass"** with **.myclass**
+    > This tag substitue the syntax **class="1stclass 2ndclass 3rd-class"** with **.1stclass.2ndclass.3rd-class**
 
 ## Example
 

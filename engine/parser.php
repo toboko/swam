@@ -7,6 +7,7 @@
 class swam
 {
 	private $next = 0;
+	private $equal = 0;
 	private $tag = "on";
 	private $workit;
 	public $printer;
@@ -43,8 +44,9 @@ class swam
 		else
 		{
 			//Reading the content inside the tag in
-			$this->auto_read($row);
+			$this->auto_read($i, false);
 			if($this->debug_mode) echo "<b>Reading content on line $this->next</b><hr>";
+			$this->equal++;
 			$this->next++;
 		}
 	}
@@ -76,17 +78,15 @@ class swam
 		$current = $this->workit->line[$i][0];
 		//Current name of tag
 		$spoiler = $this->workit->get_string_between($current," "," ");
-		//Open tag
-		$this->printer .= "<";
-		//Insert name of tag
-		$this->printer .= $spoiler;
+		//Open tag and insert name
+		$this->printer .= " <".$spoiler." ";
 		if($debug_mode) echo "<b>Opening $spoiler</b><br>";
 		//Extract the tag and change previous variable
 		$this->workit->line[$i][0] = $this->workit->delete_first_tag($current," ".$spoiler);
 		//Save positions
 		$cur_pos = $this->workit->line[$i][1];
 		//Print the element inside line after the tag
-		$this->auto_read($this->workit->line[$i][0]);
+		$this->auto_read($i, true);
 		//Close Tag
 		$this->printer .= ">";
 		//Update $this->next value
@@ -100,41 +100,58 @@ class swam
 		while (($this->workit->line[$this->next][1] > $cur_pos) && ($this->next < $this->workit->lenght))
 		{
 			if($debug_mode) echo "Major Values of <b>$spoiler</b><br><hr>";
+			//If the next line is still the same text content
+			if ($this->equal > 0) $this->printer .= " ";
+			//Check what's inside the next line
 			$this->check($this->workit->line[$this->next][0],$this->next);
 			if (!isset($this->workit->line[$this->next][0])) break;
 		}
 		if($debug_mode) echo "Equal or Min Position - <b>Closing $spoiler</b><br><hr>";
-		$this->printer .= "</$spoiler>";
+		$this->printer .= "</$spoiler> ";
+		$this->equal = 0;
 	}
 	//Function reading the content of tag
-	private function auto_read($string)
+	private function auto_read($pos,$head)
 	{
+		$string = $this->workit->line[$pos][0];
+		$end = $this->workit->line[$pos][2];
+		$start = 1;
 		$element = strtok($string, " ");
 		while($element !== false)
 		{
-			$this->fast_attributes($element);
+			$content = $this->fast_attributes($element, $head);
+			if ($start == $end) {
+				$this->printer .= $content;
+			} else {
+				$this->printer .= $content." ";
+			}
+			$start++;
 			$element = strtok(" ");
 		}
 	}
 	//This function reading the details inside a tag
-	private function fast_attributes($string)
+	private function fast_attributes($string, $head)
 	{
 		$sign = $string{0};
-		switch($sign)
-		{
-		case '#':
-			$string = substr($string, 1);
-			$this->printer = $this->printer . " id=\"".$string."\"";
-			break;
-		case '.':
-			$string = substr($string, 1);
-			$this->printer = $this->printer . " class=\"".$string."\"";
-			break;
-		default:
-			//This status is checked to optimize the white space useless
-			if (strlen($string) > 1) $this->printer = $this->printer . " " . $string;
-			else $this->printer = $this->printer . $string;
-			break;
+		if ($head) {
+			switch($sign)
+			{
+			case '#':
+				$string = substr($string, 1);
+				return "id=\"".$string."\"";
+			case '.':
+				$return = "class=\"";
+				$e = strtok($string, ".");
+				while($e !== false) {
+					$return .= $e." ";
+					$e = strtok(".");
+				}
+				$return = substr($return, 0, -1);
+				$return .= "\"";
+				return $return;
+			}
 		}
+		//This status is checked to optimize the white space useless
+		return $string;
 	}
 }

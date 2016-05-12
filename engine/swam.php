@@ -6,7 +6,7 @@
 include("workit.php");
 include("parser.php");
 //Setttings for debug mode
-$debug = true;
+$debug = false;
 //Init the class
 $swam	= new SWcompile($debug);
 //Class used to compile the project's files
