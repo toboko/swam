@@ -46,7 +46,7 @@ class workit{
 		{
 			if($debug_mode) echo "<b>token '".$tok."'</b><br> ";
 			$count = null;
-			preg_replace('/(\\/\\/+)/i', '', $tok, -1, $count);
+			preg_replace('/^[\\s\\t]*(\\/\\/)+/i', '', $tok, -1, $count);
 			//Check if it is a comment line
 			if ($count < 1)
 			{
