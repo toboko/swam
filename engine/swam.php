@@ -5,8 +5,6 @@
 ############################################
 include("workit.php");
 include("parser.php");
-//Setttings for debug mode
-$debug = false;
 //Init the class
 $swam	= new SWcompile($debug);
 //Class used to compile the project's files
@@ -19,7 +17,7 @@ class SWcompile
 	function __construct($debug)
 	{
 		//Init Class var.
-		$this->workit = new workit($debug);;
+		$this->workit = new workit($debug);
 	}
 	function parse($input)
 	{
