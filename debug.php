@@ -1,5 +1,5 @@
 <?php
-$debug=false;
+$debug=true;
 include './engine/swam-min.php';
 //Getting contents in strings
 $code = file_get_contents("./proj/string.swa");
