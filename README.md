@@ -1,18 +1,12 @@
-# SWAM [by Nicola Bombaci](http://nicolabombaci.com/ "Nicola Bombaci Webpage")
-### Short Web Acronyms Merged
+# SWAM
+
 <img style="float:right" src="./swam.png">
-### [Link to the official page](http://nicolabombaci.com/project/swam "SWAM") - [LICENSE](http://www.tldrlegal.com/l/afl3 "AFL3")
 
 SWAM (Short Web Acronyms Merged) is a great alternative for the Front-End developers. HTML is often filled with tags that during large works, generate projects slow and difficult to understand, for this reason SWAM promises to catalog all the HTML tags to have a website backward compatible, fluid and dynamics.
 The language is python like and require the presence of the tabs. Every line is considered like a node of tree, who is on top is the father, who is under the father is a son and so on
 
-## Try the live code [HERE](http://nicolabombaci.com/project/code/swam.php "SWAM Live Code")
-
-You can easily try the language and understand the syntax of SWAM. It's easy, it's fast, it could be yours. Let's click to discover. It's free
-
-## How to
-### Install
-Download the project from [Github](https://github.com/Nilsbb/swam "GitHub") and copy `swam-min.php` in your folder
+## How to install
+Download the project from [Github](https://github.com/toboko/swam "GitHub") and copy `swam-min.php` in your folder
 
 Add in your *php* file the **library**
 
@@ -27,8 +21,8 @@ And print your parsed file
 `echo $swam->parse($code);`
 
 And this is it!
-### Programming
 
+## How to programming
 Every time you will create a new SWAM file (.swa), you can compile it only by pass through the piece of code into the class of **swam** and exectue the parsing `$swam->parse($string)`. A little debugger will show you the status of your work.
 
 There is a **debug mode** that you can easily activate, opening the file `swam-min.php` and at start you can see the variable `$debug` set on false. Turn on `true` and you can see how SWAM is working. It is very useful to check and fix some mistakes inside your code.

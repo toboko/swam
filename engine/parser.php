@@ -1,10 +1,13 @@
 <?php
 ############################################
-##						LICENSE AFL3.0							##
+##            LICENSE AFL3.0              ##
 ## Copyright (c) 2015-2016 Nicola Bombaci ##
 ############################################
 
-class swam
+/**
+ * SWAM CLASS
+ */
+class Swam
 {
 	private $next = 0;
 	private $equal = 0;
